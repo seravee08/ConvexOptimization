@@ -5,7 +5,7 @@ import random
 import math
 
 # ===== Vanila Gradient Descent =====
-def plain_gradient_descent(iterations, step_size, initial_x):
+def plain_gradient_descent(iterations, step_size, initial_x, epsilon):
 
     x       = initial_x
     x_seq   = [initial_x[0]]
@@ -22,10 +22,13 @@ def plain_gradient_descent(iterations, step_size, initial_x):
         y_seq.append(x[1])
         z_seq.append(x[0] * x[1])
 
+        if (np.sqrt(x[0] * x[0] + x[1] * x[1]) < epsilon):
+            break
+
     draw_functions(x_seq, y_seq, z_seq)
 
 # ===== Simple Dual Averages (SDA) =====
-def simple_dual_averages(iterations, gamma, alpha, initial_x, initial_s):
+def simple_dual_averages(iterations, gamma, alpha, initial_x, initial_s, epsilon):
 
     s_k         = initial_s
     x           = initial_x
@@ -56,6 +59,9 @@ def simple_dual_averages(iterations, gamma, alpha, initial_x, initial_s):
         z_seq.append(x[0] * x[1])
 
         counter  = counter + 1
+
+        if (np.sqrt(x[0] * x[0] + x[1] * x[1]) < epsilon):
+            break
 
     draw_functions(x_seq, y_seq, z_seq)
 
